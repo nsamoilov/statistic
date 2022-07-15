@@ -5,16 +5,16 @@ from deep_translator import PonsTranslator
 #Чтение данных из git репозитория
 url = 'https://raw.githubusercontent.com/nsamoilov/statistic/main/coronavirus_dataset4.csv'
 df = pd.read_csv(url, delimiter=',')
-#Группировка по странам, так как однйо стране отведено 114 строк в файле
+#Группировка по странам, так как одной стране отведено 114 строк в файле
 group_data = df.groupby(['Country.Region'])
 #Сумма всех элементов столбца 'cases' с привязкой к группе (одной стране)
 cases_data = group_data.agg({'cases': ['sum']})['cases']['sum']
-#Формирования списка стран, перебор двумерного массива для получения ключа
+#Формирование списка стран, перебор двумерного массива для получения ключа
 countries_data = list()
 for key, item in group_data:
     #Перевод ключа с анлийского на русский с помощью словаря Pons (https://ru.pons.com/перевод)
     translated_word = PonsTranslator(source='english', target='russian').translate(key, return_all=False)
-    #Добавление в список строки типа: страна - общее количество заболевших
+    #Добавление в список строки "страна (общее количество заболевших)"
     countries_data.append(translated_word+'('+str(cases_data[key])+')')
 
 #Формирования различных цветов для отображения    
