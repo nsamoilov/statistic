@@ -51,6 +51,7 @@ for countryName, countryGroup in groupby(allDataList, lambda x: x.country):
                     date.append(timeInfo.data[0:7])
     plt.plot(cases.keys(), cases.values(), label=countryName, linewidth=1.0)
     #print("Next country")
+
 country = country[1:]
 plt.xlabel("Дата", fontsize=44, fontweight="bold")
 plt.ylabel("Значения", fontsize=44, fontweight="bold")
